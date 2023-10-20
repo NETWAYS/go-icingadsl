@@ -9,31 +9,49 @@ import (
 
 var indentation int
 
+type Identifier string
+
+// https://icinga.com/docs/icinga-2/latest/doc/17-language-reference/#duration-literals
 type Duration struct {
 	time.Duration
 }
 
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#number-type
+// Only Integers for now
 type Integer int
 
+// TODO  Not yet implemented
+// type Float float
+
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#string-type
 type String string
 
-type Identifier string
-
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#dictionary-type
 type Dictionary map[Identifier]Object
 
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#object-type
 type Array []Object
 
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#boolean-type
 type Boolean bool
 
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#object-type
 type Object interface {
 	String() string
 }
+
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#type-type
+// TODO Not yet implemented
+
+// https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#datetime-type
+// TODO  Not yet implemented
 
 const (
 	True  = Boolean(true)
 	False = Boolean(false)
 )
 
+// https://icinga.com/docs/icinga-2/latest/doc/09-object-types/#checkcommand-arguments
 type CheckCommandArgument struct {
 	Name        string
 	Value       string
@@ -47,6 +65,7 @@ type CheckCommandArgument struct {
 	SkipKey     bool
 }
 
+// https://icinga.com/docs/icinga-2/latest/doc/09-object-types/#checkcommand
 type CheckCommand struct {
 	Name      string
 	Command   Array
@@ -73,6 +92,8 @@ func (i Integer) String() string {
 	return fmt.Sprintf("%d", i)
 }
 
+// Wrapper to stringify the Icinga2 String Object
+// Handles escaping and multiline strings when necessary
 func (is String) String() string {
 	if !strings.Contains(string(is), "\n") {
 		// TODO Escape special characters properly
