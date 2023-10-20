@@ -56,6 +56,12 @@ func TestInteger(t *testing.T) {
 	assertEqualString(t, "1", int1.String())
 }
 
+func TestFloat(t *testing.T) {
+	float1 := Float(1.5)
+
+	assertEqualString(t, "1.5", float1.String())
+}
+
 func TestString(t *testing.T) {
 	string1 := String("foo\nbar")
 
