@@ -41,7 +41,7 @@ type Object interface {
 // TODO Not yet implemented
 
 // https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#datetime-type
-// TODO
+// TODO  Not yet implemented
 
 const (
 	True  = Boolean(true)
