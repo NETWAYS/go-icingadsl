@@ -17,8 +17,11 @@ type Duration struct {
 }
 
 // https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#number-type
-// This is only the integer "half" of the Icinga2 type
+// Only Integers for now
 type Integer int
+
+// TODO  Not yet implemented
+// type Float float
 
 // https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#string-type
 type String string
