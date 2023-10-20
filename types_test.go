@@ -29,7 +29,7 @@ func TestCheckCommandArgument(t *testing.T) {
 	repeat_key = false
 }`
 
-	assertEqualString(t, resultString, cca.String(""))
+	assertEqualString(t, resultString, cca.String(0, ""))
 }
 
 func TestString(t *testing.T) {
@@ -57,6 +57,38 @@ func TestArray(t *testing.T) {
 	}
 
 	assertEqualString(t, "[\"foo\"]", ia3.String())
+}
+
+func BenchmarkCheckCommandString(b *testing.B) {
+	b.ReportAllocs()
+
+	cc := CheckCommand{
+		Name:    "MyPlugin",
+		Command: Array{Identifier("PluginContribDir"), String("check_myPlugin")},
+		Vars:    Dictionary{Identifier("var1"): Integer(56)},
+		Timeout: Duration{time.Duration(30 * time.Second)},
+		Arguments: []CheckCommandArgument{
+			{
+				Name:        "--foo",
+				Value:       "foo_val",
+				Description: String("hello\nneighbour"),
+				Required:    false,
+				SetIf:       String("bla_foo_bool"),
+				Order:       5,
+			},
+			{
+				Name:        "--bla",
+				Value:       "bla_val",
+				Description: "ciao",
+				Required:    true,
+				SetIf:       String("bla_foo_bool"),
+			},
+		},
+	}
+
+	for i := 0; i < b.N; i++ {
+		_ = cc.String()
+	}
 }
 
 func TestCheckCommand(t *testing.T) {
