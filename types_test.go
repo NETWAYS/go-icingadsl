@@ -3,9 +3,13 @@ package icingadsl
 import (
 	"testing"
 	"time"
-
-	"github.com/stretchr/testify/assert"
 )
+
+func assertEqualString(t *testing.T, actual, expected string) {
+	if actual != expected {
+		t.Error("\nActual: ", actual, "\nExpected: ", expected)
+	}
+}
 
 func TestCheckCommandArgument(t *testing.T) {
 	cca := CheckCommandArgument{
@@ -25,14 +29,13 @@ func TestCheckCommandArgument(t *testing.T) {
 	repeat_key = false
 }`
 
-	assert.Equal(t, resultString, cca.String(""))
+	assertEqualString(t, resultString, cca.String(""))
 }
 
 func TestString(t *testing.T) {
 	string1 := String("foo\nbar")
 
-	assert.Equal(t, "{{{foo\nbar}}}", string1.String())
-
+	assertEqualString(t, "{{{foo\nbar}}}", string1.String())
 }
 
 func TestArray(t *testing.T) {
@@ -43,17 +46,17 @@ func TestArray(t *testing.T) {
 
 	resultString := `["foo", "bla"]`
 
-	assert.Equal(t, resultString, ia.String())
+	assertEqualString(t, resultString, ia.String())
 
 	ia2 := Array{}
 
-	assert.Equal(t, "[]", ia2.String())
+	assertEqualString(t, "[]", ia2.String())
 
 	ia3 := Array{
 		String("foo"),
 	}
 
-	assert.Equal(t, "[\"foo\"]", ia3.String())
+	assertEqualString(t, "[\"foo\"]", ia3.String())
 }
 
 func TestCheckCommand(t *testing.T) {
@@ -103,7 +106,7 @@ neighbour}}}
 }
 `
 
-	assert.Equal(t, resultString, cc.String())
+	assertEqualString(t, resultString, cc.String())
 }
 
 func TestCheckCommandWithEmptyArgs(t *testing.T) {
@@ -118,7 +121,7 @@ func TestCheckCommandWithEmptyArgs(t *testing.T) {
 }
 `
 
-	assert.Equal(t, resultString, cc.String())
+	assertEqualString(t, resultString, cc.String())
 }
 
 func TestCheckCommandWithFilledArgs(t *testing.T) {
@@ -167,5 +170,5 @@ func TestCheckCommandWithFilledArgs(t *testing.T) {
 }
 `
 
-	assert.Equal(t, resultString, cc.String())
+	assertEqualString(t, resultString, cc.String())
 }
