@@ -102,12 +102,12 @@ func (cc *CheckCommand) String() string {
 	indentation++
 
 	for _, cci := range cc.Imports {
-		bla.WriteString(IndntStr() + "import \"" + cci.Name + "\"\n")
+		bla.WriteString(indentString() + "import \"" + cci.Name + "\"\n")
 	}
 
-	bla.WriteString(IndntStr() + "command = " + cc.Command.String() + "\n")
+	bla.WriteString(indentString() + "command = " + cc.Command.String() + "\n")
 
-	bla.WriteString(IndntStr() + "arguments = {\n")
+	bla.WriteString(indentString() + "arguments = {\n")
 	indentation++
 
 	for i := range cc.Arguments {
@@ -117,11 +117,11 @@ func (cc *CheckCommand) String() string {
 
 	indentation--
 
-	bla.WriteString(IndntStr() + "}\n")
+	bla.WriteString(indentString() + "}\n")
 
 	indentation--
 
-	bla.WriteString(IndntStr() + "}\n")
+	bla.WriteString(indentString() + "}\n")
 
 	return bla.String()
 }
@@ -148,70 +148,70 @@ func (ia *Array) String() string {
 func (cca *CheckCommandArgument) String(prefix string) string {
 	var b strings.Builder
 
-	b.WriteString(IndntStr() + "\"" + cca.Name + "\" = {\n")
+	b.WriteString(indentString() + "\"" + cca.Name + "\" = {\n")
 
 	indentation++
 
 	if cca.Value != "" {
 		if prefix != "" {
-			b.WriteString(IndntStr() + "value = \"$" + prefix + "_" + strings.ReplaceAll(cca.Value, "-", "_") + "$\"\n")
+			b.WriteString(indentString() + "value = \"$" + prefix + "_" + strings.ReplaceAll(cca.Value, "-", "_") + "$\"\n")
 		} else {
-			b.WriteString(IndntStr() + "value = \"$" + strings.ReplaceAll(cca.Value, "-", "_") + "$\"\n")
+			b.WriteString(indentString() + "value = \"$" + strings.ReplaceAll(cca.Value, "-", "_") + "$\"\n")
 		}
 	} else {
-		b.WriteString(IndntStr() + "value = \"\"\n")
+		b.WriteString(indentString() + "value = \"\"\n")
 	}
 
 	if cca.Description != "" {
-		b.WriteString(IndntStr() + "description = " + cca.Description.String() + "\n")
+		b.WriteString(indentString() + "description = " + cca.Description.String() + "\n")
 	}
 
 	if cca.Required {
-		b.WriteString(IndntStr() + "required = true\n")
+		b.WriteString(indentString() + "required = true\n")
 	}
 
 	if cca.SkipKey {
-		b.WriteString(IndntStr() + "skip_key = true\n")
+		b.WriteString(indentString() + "skip_key = true\n")
 	}
 
 	if cca.SetIf != nil {
 		switch tmp := cca.SetIf.(type) {
 		case String:
 			if prefix != "" {
-				b.WriteString(IndntStr() + "set_if = \"$" + prefix + "_" + strings.ReplaceAll(tmp.RawString(), "-", "_") + "$\"\n")
+				b.WriteString(indentString() + "set_if = \"$" + prefix + "_" + strings.ReplaceAll(tmp.RawString(), "-", "_") + "$\"\n")
 			} else {
-				b.WriteString(IndntStr() + "set_if = \"$" + strings.ReplaceAll(tmp.RawString(), "-", "_") + "$\"\n")
+				b.WriteString(indentString() + "set_if = \"$" + strings.ReplaceAll(tmp.RawString(), "-", "_") + "$\"\n")
 			}
 		case Boolean:
-			b.WriteString(IndntStr() + "set_if = " + tmp.String() + "\n")
+			b.WriteString(indentString() + "set_if = " + tmp.String() + "\n")
 		default:
 		}
 	}
 
 	if cca.Order != 0 {
-		b.WriteString(IndntStr() + "order = " + fmt.Sprintf("%d", cca.Order) + "\n")
+		b.WriteString(indentString() + "order = " + fmt.Sprintf("%d", cca.Order) + "\n")
 	}
 
 	if !cca.RepeatKey {
-		b.WriteString(IndntStr() + "repeat_key = false\n")
+		b.WriteString(indentString() + "repeat_key = false\n")
 	}
 
 	if cca.Key != "" {
-		b.WriteString(IndntStr() + "key = \"" + cca.Key + "\"\n")
+		b.WriteString(indentString() + "key = \"" + cca.Key + "\"\n")
 	}
 
 	if cca.Separator != "" {
-		b.WriteString(IndntStr() + "separator = \"" + cca.Separator + "\"\n")
+		b.WriteString(indentString() + "separator = \"" + cca.Separator + "\"\n")
 	}
 
 	indentation--
 
-	b.WriteString(IndntStr() + "}")
+	b.WriteString(indentString() + "}")
 
 	return b.String()
 }
 
-func IndntStr() string {
+func indentString() string {
 	return strings.Repeat("\t", indentation)
 }
 
