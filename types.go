@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+// indentation holds the current indentation level for String output.
+// It is currently used to track the indentation of subelements, example:
+// CheckCommand holds one or more CheckCommandArguments that need to be indented
+// depending on their CheckCommand.
 var indentation int
 
 type Identifier string
@@ -107,14 +111,17 @@ func (is String) String() string {
 	return `{{{` + string(is) + `}}}`
 }
 
+// RawString returns the String Object as string without escaping
 func (is String) RawString() string {
 	return string(is)
 }
 
+// String returns the Identifier Object as string
 func (i Identifier) String() string {
 	return string(i)
 }
 
+// String returns the CheckCommand Object as string with proper indentation
 func (cc *CheckCommand) String() string {
 	var bla strings.Builder
 
@@ -147,6 +154,8 @@ func (cc *CheckCommand) String() string {
 	return bla.String()
 }
 
+// String returns the Array Object as string.
+// Uses [] as array markers and , as element delimiter
 func (ia *Array) String() string {
 	var b strings.Builder
 
@@ -166,6 +175,8 @@ func (ia *Array) String() string {
 	return b.String()
 }
 
+// String returns the CheckCommandArgument Object as string with the given prefix
+// and proper indentation
 func (cca *CheckCommandArgument) String(prefix string) string {
 	var b strings.Builder
 
@@ -232,10 +243,12 @@ func (cca *CheckCommandArgument) String(prefix string) string {
 	return b.String()
 }
 
+// indentString is a helper function that returns tab indentation
 func indentString() string {
 	return strings.Repeat("\t", indentation)
 }
 
+// String returns the Operator Object as string
 func (op *Operator) String() string {
 	if *op == PLUS {
 		return "+"
@@ -244,6 +257,7 @@ func (op *Operator) String() string {
 	return ""
 }
 
+// String returns the InfixExpression Object as string
 func (ie InfixExpression) String() string {
 	var result strings.Builder
 
@@ -254,6 +268,7 @@ func (ie InfixExpression) String() string {
 	return result.String()
 }
 
+// String returns the Boolean Object as string
 func (b Boolean) String() string {
 	if b {
 		return "true"
