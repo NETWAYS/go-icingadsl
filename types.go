@@ -89,7 +89,7 @@ func (i Integer) String() string {
 	return fmt.Sprintf("%d", i)
 }
 
-// Wrapper for stringifying the Icinga2 String Object
+// Wrapper to stringify the Icinga2 String Object
 // Handles escaping and multiline strings when necessary
 func (is String) String() string {
 	if !strings.Contains(string(is), "\n") {
