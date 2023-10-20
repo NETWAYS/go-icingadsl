@@ -32,6 +32,30 @@ func TestCheckCommandArgument(t *testing.T) {
 	assertEqualString(t, resultString, cca.String(""))
 }
 
+func TestInfixExpression(t *testing.T) {
+	int1 := InfixExpression{
+		Left:          Boolean(true),
+		InfixOperator: PLUS,
+		Right:         Boolean(false),
+	}
+
+	assertEqualString(t, "true + false", int1.String())
+}
+
+func TestBoolean(t *testing.T) {
+	b1 := Boolean(true)
+	b2 := Boolean(false)
+
+	assertEqualString(t, "true", b1.String())
+	assertEqualString(t, "false", b2.String())
+}
+
+func TestInteger(t *testing.T) {
+	int1 := Integer(1)
+
+	assertEqualString(t, "1", int1.String())
+}
+
 func TestString(t *testing.T) {
 	string1 := String("foo\nbar")
 
