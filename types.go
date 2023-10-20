@@ -23,9 +23,7 @@ type Duration struct {
 // https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#number-type
 // Only Integers for now
 type Integer int
-
-// TODO  Not yet implemented
-// type Float float
+type Float float64
 
 // https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#string-type
 type String string
@@ -94,6 +92,10 @@ type InfixExpression struct {
 
 func (i Integer) String() string {
 	return fmt.Sprintf("%d", i)
+}
+
+func (f Float) String() string {
+	return fmt.Sprintf("%g", f)
 }
 
 // Wrapper to stringify the Icinga2 String Object
