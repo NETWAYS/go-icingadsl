@@ -17,7 +17,7 @@ type Identifier string
 
 // https://icinga.com/docs/icinga-2/latest/doc/17-language-reference/#duration-literals
 type Duration struct {
-	time.Duration
+	duration time.Duration
 }
 
 // https://icinga.com/docs/icinga-2/latest/doc/18-library-reference/#number-type
@@ -70,7 +70,7 @@ func (i Integer) String() string {
 }
 
 func (f Float) String() string {
-	return fmt.Sprintf("%g", f)
+	return fmt.Sprintf("%2.1f", f)
 }
 
 // Wrapper to stringify the Icinga2 String Object
@@ -151,4 +151,29 @@ func (b Boolean) String() string {
 	}
 
 	return "false"
+}
+
+func (d *Dictionary) String() string {
+	if len(*d) == 0 {
+		return "{}"
+	}
+
+	var builder strings.Builder
+
+	builder.WriteString("{\n")
+	indentation++
+
+	for k, v := range *d {
+		builder.WriteString(indentString() + k.String() + " = " + v.String() + ",\n")
+	}
+
+	indentation--
+
+	builder.WriteString(indentString() + "}")
+
+	return builder.String()
+}
+
+func (d *Duration) String() string {
+	return strconv.FormatFloat(d.duration.Seconds(), 'f', -1, 64) + "s"
 }

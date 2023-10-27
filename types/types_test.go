@@ -1,13 +1,46 @@
 package icingadsl
 
 import (
+	"fmt"
+	"os"
 	"testing"
 	"time"
 )
 
 func assertEqualString(t *testing.T, actual, expected string) {
 	if actual != expected {
-		t.Error("\nActual: ", actual, "\nExpected: ", expected)
+
+		report := ""
+
+		lenActual := len(actual)
+		lenExpected := len(expected)
+
+		if lenActual != lenExpected {
+			report += fmt.Sprintf("Strings differ in length. Actual is %d symbols long, Expected %d symbols", lenActual, lenExpected)
+		} else {
+			for i := range actual {
+				if actual[i] != expected[i] {
+					report += fmt.Sprintf("Strings differ at position %d where actual has symbol %c and expected %c", i, actual[i], expected[i])
+				}
+			}
+		}
+
+		report += fmt.Sprint("\nActual: ", actual, "\nExpected: ", expected)
+
+		path, err := os.MkdirTemp("/tmp/", "gotest*")
+
+		if err == nil {
+			err = os.WriteFile(path+"/expected", []byte(expected), 0644)
+
+			if err == nil {
+				err = os.WriteFile(path+"/actual", []byte(actual), 0644)
+				if err == nil {
+					report += "\nWrote actual to " + path + "/actual and expected to " + path + "/expected"
+				}
+			}
+		}
+
+		t.Error(report)
 	}
 }
 
@@ -201,4 +234,26 @@ func TestCheckCommandWithFilledArgs(t *testing.T) {
 `
 
 	assertEqualString(t, resultString, cc.String())
+}
+
+func TestEmptyDictionary(t *testing.T) {
+	dict := Dictionary{}
+	result := dict.String()
+	compare := "{}"
+
+	assertEqualString(t, result, compare)
+}
+
+func TestSimpleDictionary(t *testing.T) {
+	dict := Dictionary{
+		"foo": String("bar"),
+	}
+
+	result := dict.String()
+
+	compare := `{
+	foo = "bar",
+}`
+
+	assertEqualString(t, result, compare)
 }
