@@ -6,11 +6,12 @@ import (
 )
 
 // https://icinga.com/docs/icinga-2/latest/doc/09-object-types/#host
+// nolint:maligned
 type Host struct {
 	Name string
 
 	// Imports is, strictly speaking, broken by definition here since imports
-	// will overwrite values depending on wheter they are above or below other directives.
+	// will overwrite values depending on whether they are above or below other directives.
 	// Therefore this covers only the case "Imported before any specific host configuration"
 	Imports []*HostTemplate `icingadsl:"import"`
 
@@ -66,14 +67,15 @@ type Host struct {
 	CommandEndpoint *Endpoint `icingadsl:"command_endpoint"`
 
 	Notes    String `icingadsl:"notes"`
-	NotesUrl String `icingadsl:"notes_url"`
+	NotesURL String `icingadsl:"notes_url"`
 
-	ActionUrl String `icingadsl:"action_url"`
+	ActionURL String `icingadsl:"action_url"`
 
 	IconImage    String `icingadsl:"icon_image"`
 	IconImageAlt String `icingadsl:"icon_image_alt"`
 }
 
+// nolint:funlen
 func (h *Host) String() string {
 	var stringer strings.Builder
 
@@ -179,12 +181,12 @@ func (h *Host) String() string {
 		stringer.WriteString(indentString() + "notes = " + h.Notes.String() + "\n")
 	}
 
-	if h.NotesUrl != "" {
-		stringer.WriteString(indentString() + "notes_url = " + h.NotesUrl.String() + "\n")
+	if h.NotesURL != "" {
+		stringer.WriteString(indentString() + "notes_url = " + h.NotesURL.String() + "\n")
 	}
 
-	if h.ActionUrl != "" {
-		stringer.WriteString(indentString() + "action_url = " + h.ActionUrl.String() + "\n")
+	if h.ActionURL != "" {
+		stringer.WriteString(indentString() + "action_url = " + h.ActionURL.String() + "\n")
 	}
 
 	if h.IconImage != "" {
@@ -196,6 +198,7 @@ func (h *Host) String() string {
 	}
 
 	indentation--
+
 	stringer.WriteString(indentString() + "}")
 
 	return stringer.String()

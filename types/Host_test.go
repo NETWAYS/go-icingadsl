@@ -127,9 +127,9 @@ func TestFullHost(t *testing.T) {
 	host.CommandEndpoint = &testShredder
 
 	host.Notes = String("Note to me:")
-	host.NotesUrl = String("https://icinga.example.com/docu")
+	host.NotesURL = String("https://icinga.example.com/docu")
 
-	host.ActionUrl = String("https://icinga.example.com/action/$host.name")
+	host.ActionURL = String("https://icinga.example.com/action/$host.name")
 
 	host.IconImage = "exampleHost.png"
 	host.IconImageAlt = "brokenExampleHost.png"
