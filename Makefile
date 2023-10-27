@@ -1,7 +1,7 @@
 .PHONY: test coverage lint vet
 
 build:
-	go build
+	go build ./...
 lint:
 	go fmt $(go list ./... | grep -v /vendor/)
 vet:
