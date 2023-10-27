@@ -15,11 +15,11 @@ type Host struct {
 	// Therefore this covers only the case "Imported before any specific host configuration"
 	Imports []*HostTemplate `icingadsl:"import"`
 
-	DisplayName String     `icingadsl:"display_name"`
-	Address     String     `icingadsl:"address"`
-	Address6    String     `icingadsl:"address6"`
-	Groups      Array      `icingadsl:"groups"`
-	Vars        Dictionary `icingadsl:"vars"`
+	DisplayName String       `icingadsl:"display_name"`
+	Address     String       `icingadsl:"address"`
+	Address6    String       `icingadsl:"address6"`
+	Groups      []*HostGroup `icingadsl:"groups"`
+	Vars        Dictionary   `icingadsl:"vars"`
 
 	CheckCommand *CheckCommand `icingadsl:"check_command"`
 
@@ -102,7 +102,17 @@ func (h *Host) String() string {
 	}
 
 	if len(h.Groups) != 0 {
-		stringer.WriteString(indentString() + "groups = " + h.Groups.String() + "\n")
+		stringer.WriteString(indentString() + "groups = [")
+
+		length := len(h.Groups)
+
+		if length-1 > 0 {
+			for index := 0; index < (length - 2); index++ {
+				stringer.WriteString("\"" + h.Groups[index].Name + "\",")
+			}
+		}
+		stringer.WriteString("\"" + h.Groups[(length-1)].Name + "\"")
+		stringer.WriteString("]\n")
 	}
 
 	if len(h.Vars) != 0 {

@@ -40,7 +40,13 @@ func TestFullHost(t *testing.T) {
 	host.Address = "192.0.2.4"
 	host.Address6 = "2001:DB8::666"
 
-	host.Groups = Array{String("example")}
+	exampleGroup := HostGroup{
+		Name: "example",
+	}
+
+	host.Groups = []*HostGroup{
+		&exampleGroup,
+	}
 
 	host.Vars = Dictionary{
 		"parameter1": String("nope"),
