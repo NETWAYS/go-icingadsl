@@ -6,4 +6,5 @@ type HostTemplate struct {
 
 func (ht *HostTemplate) GetName() string {
 	return ht.Name
+	//TODO
 }
