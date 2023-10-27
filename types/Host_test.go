@@ -22,15 +22,15 @@ func TestFullHost(t *testing.T) {
 
 	host.Name = "foo"
 
-	htGeneric := HostTemplate{
+	htGeneric := Host{
 		Name: "generic",
 	}
 
-	htSpecial := HostTemplate{
+	htSpecial := Host{
 		Name: "special",
 	}
 
-	host.Imports = []*HostTemplate{
+	host.Imports = []*Host{
 		&htGeneric,
 		&htSpecial,
 	}

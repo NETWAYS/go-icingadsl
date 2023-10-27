@@ -8,12 +8,13 @@ import (
 // https://icinga.com/docs/icinga-2/latest/doc/09-object-types/#host
 // nolint:maligned
 type Host struct {
-	Name string
+	Name       string
+	IsTemplate bool
 
 	// Imports is, strictly speaking, broken by definition here since imports
 	// will overwrite values depending on whether they are above or below other directives.
 	// Therefore this covers only the case "Imported before any specific host configuration"
-	Imports []*HostTemplate `icingadsl:"import"`
+	Imports []*Host `icingadsl:"import"`
 
 	DisplayName String       `icingadsl:"display_name"`
 	Address     String       `icingadsl:"address"`
@@ -75,17 +76,23 @@ type Host struct {
 	IconImageAlt String `icingadsl:"icon_image_alt"`
 }
 
-// nolint:funlen
+// nolint:funlen,gocognit,gocyclo
 func (h *Host) String() string {
 	var stringer strings.Builder
 
-	stringer.WriteString("object Host \"" + h.Name + "\" {\n")
+	if h.IsTemplate {
+		stringer.WriteString("template ")
+	} else {
+		stringer.WriteString("object ")
+	}
+
+	stringer.WriteString("Host \"" + h.Name + "\" {\n")
 
 	indentation++
 
 	if len(h.Imports) != 0 {
 		for index := range h.Imports {
-			stringer.WriteString(indentString() + "import \"" + h.Imports[index].GetName() + "\"\n")
+			stringer.WriteString(indentString() + "import \"" + h.Imports[index].Name + "\"\n")
 		}
 	}
 
@@ -111,6 +118,7 @@ func (h *Host) String() string {
 				stringer.WriteString("\"" + h.Groups[index].Name + "\",")
 			}
 		}
+
 		stringer.WriteString("\"" + h.Groups[(length-1)].Name + "\"")
 		stringer.WriteString("]\n")
 	}
