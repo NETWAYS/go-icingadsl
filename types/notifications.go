@@ -40,7 +40,7 @@ func ParseNotificationType(nt string) (NotificationType, error) {
 	case "flappingend":
 		return FlappingEnd, nil
 	default:
-		return 0, errors.New("no matching state for provided string")
+		return 0, errors.New("no matching state for the provided string")
 	}
 }
 
