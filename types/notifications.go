@@ -19,6 +19,10 @@ const (
 	FlappingEnd
 )
 
+/*
+ * Parse a notification type string (typically received when Icinga 2 is executing a notification plugin)
+ * into a fitting enum to simplify the following logic.
+ */
 func ParseNotificationType(nt string) (NotificationType, error) {
 	switch strings.ToLower(nt) {
 	case "downtimestart":
@@ -44,6 +48,9 @@ func ParseNotificationType(nt string) (NotificationType, error) {
 	}
 }
 
+/*
+ * Reverse of the above function for completeness
+ */
 func FormatNotificationType(nt NotificationType) (string, error) {
 	switch nt {
 	case DowntimeStart:
