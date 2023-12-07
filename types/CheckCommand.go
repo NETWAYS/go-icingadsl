@@ -1,4 +1,4 @@
-package icingadsl
+package types
 
 import (
 	"strings"
