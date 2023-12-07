@@ -49,7 +49,7 @@ func ParseNotificationType(nt string) (NotificationType, error) {
 }
 
 /*
- * Reverse of the above function for completeness
+ * Transforms a notification type into a string
  */
 func FormatNotificationType(nt NotificationType) (string, error) {
 	switch nt {
