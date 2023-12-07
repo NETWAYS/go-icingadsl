@@ -65,6 +65,6 @@ func FormatNotificationType(nt NotificationType) (string, error) {
 	case FlappingEnd:
 		return "flappingend", nil
 	default:
-		return "", errors.New("no matching state for provided number")
+		return "", errors.New("no matching state for the provided number")
 	}
 }
