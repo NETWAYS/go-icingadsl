@@ -1,7 +1,7 @@
 package icingadsl
 
 import (
-	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -65,7 +65,7 @@ func (cca *CheckCommandArgument) String(prefix string) string {
 	}
 
 	if cca.Order != 0 {
-		b.WriteString(indentString() + "order = " + fmt.Sprintf("%d", cca.Order) + "\n")
+		b.WriteString(indentString() + "order = " + strconv.Itoa(cca.Order) + "\n")
 	}
 
 	if !cca.RepeatKey {

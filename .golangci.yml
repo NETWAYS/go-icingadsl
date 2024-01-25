@@ -11,6 +11,9 @@ issues:
     - path: 'convert/bytes_common.go'
       linters:
         - ireturn
+    - path: 'CheckCommandArgument.go'
+      linters:
+        - goconst
 linters:
    enable-all: true
    disable:
