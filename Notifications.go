@@ -51,27 +51,27 @@ func ParseNotificationType(nt string) (NotificationType, error) {
 /*
  * Transforms a notification type into a string
  */
-func FormatNotificationType(nt NotificationType) (string, error) {
+func (nt NotificationType) String() string {
 	switch nt {
 	case DowntimeStart:
-		return "downtimestart", nil
+		return "downtimestart"
 	case DowntimeEnd:
-		return "downtimeend", nil
+		return "downtimeend"
 	case DowntimeRemoved:
-		return "downtimeremoved", nil
+		return "downtimeremoved"
 	case Custom:
-		return "custom", nil
+		return "custom"
 	case Acknowledgement:
-		return "acknowledgement", nil
+		return "acknowledgement"
 	case Problem:
-		return "problem", nil
+		return "problem"
 	case Recovery:
-		return "recovery", nil
+		return "recovery"
 	case FlappingStart:
-		return "flappingstart", nil
+		return "flappingstart"
 	case FlappingEnd:
-		return "flappingend", nil
+		return "flappingend"
 	default:
-		return "", errors.New("no matching state for the provided number")
+		return ""
 	}
 }
