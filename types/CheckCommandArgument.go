@@ -6,7 +6,7 @@ import (
 )
 
 // https://icinga.com/docs/icinga-2/latest/doc/09-object-types/#checkcommand-arguments
-type CheckCommandArgument struct {
+type CommandArgument struct {
 	Name        string
 	Value       string
 	Description String
@@ -21,7 +21,7 @@ type CheckCommandArgument struct {
 
 // String returns the CheckCommandArgument Object as string with the given prefix
 // and proper indentation
-func (cca *CheckCommandArgument) String(prefix string) string {
+func (cca *CommandArgument) String(prefix string) string {
 	var b strings.Builder
 
 	b.WriteString(indentString() + "\"" + cca.Name + "\" = {\n")

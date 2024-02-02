@@ -12,7 +12,7 @@ type CheckCommand struct {
 	Env       map[string]string
 	Vars      Dictionary
 	Timeout   Duration
-	Arguments []CheckCommandArgument
+	Arguments []CommandArgument
 }
 
 // String returns the CheckCommand Object as string with proper indentation

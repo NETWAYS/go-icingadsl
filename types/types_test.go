@@ -45,7 +45,7 @@ func assertEqualString(t *testing.T, actual, expected string) {
 }
 
 func TestCheckCommandArgument(t *testing.T) {
-	cca := CheckCommandArgument{
+	cca := CommandArgument{
 		Name:        "--foo",
 		Value:       "bla_foo",
 		Description: "hello",
@@ -128,7 +128,7 @@ func TestCheckCommand(t *testing.T) {
 		Command: Array{Identifier("PluginContribDir"), String("check_myPlugin")},
 		Vars:    Dictionary{Identifier("var1"): Integer(56)},
 		Timeout: Duration{time.Duration(30 * time.Second)},
-		Arguments: []CheckCommandArgument{
+		Arguments: []CommandArgument{
 			{
 				Name:        "--foo",
 				Value:       "foo_val",
@@ -193,7 +193,7 @@ func TestCheckCommandWithFilledArgs(t *testing.T) {
 		Command: Array{Identifier("PluginContribDir"), String("check_myPlugin")},
 		Vars:    Dictionary{Identifier("var1"): Integer(56)},
 		Timeout: Duration{time.Duration(30 * time.Second)},
-		Arguments: []CheckCommandArgument{
+		Arguments: []CommandArgument{
 			{
 				Name:        "--foo",
 				Value:       "foo_val",
