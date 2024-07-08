@@ -1,9 +1,10 @@
 # See documentation at https://goreleaser.com
+version: 2
 before:
   hooks:
     - go mod download
-build:
-  skip: true
+builds:
+  - skip: true
 release:
   github:
   draft: true
