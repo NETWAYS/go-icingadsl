@@ -1,3 +1,3 @@
 module github.com/NETWAYS/go-icingadsl
 
-go 1.21
+go 1.22
