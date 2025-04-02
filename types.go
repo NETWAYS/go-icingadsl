@@ -109,6 +109,7 @@ func (ia *Array) String() string {
 		for i := 0; i < len(*ia)-1; i++ {
 			b.WriteString((*ia)[i].String() + ", ")
 		}
+
 		b.WriteString((*ia)[len(*ia)-1].String())
 	} else if len(*ia) == 1 {
 		b.WriteString((*ia)[0].String())

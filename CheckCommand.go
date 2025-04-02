@@ -30,6 +30,7 @@ func (cc *CheckCommand) String() string {
 	bla.WriteString(indentString() + "command = " + cc.Command.String() + "\n")
 
 	bla.WriteString(indentString() + "arguments = {\n")
+
 	indentation++
 
 	for i := range cc.Arguments {
