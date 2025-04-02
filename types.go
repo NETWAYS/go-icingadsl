@@ -106,7 +106,7 @@ func (ia *Array) String() string {
 	b.WriteString("[")
 
 	if len(*ia) > 1 {
-		for i := 0; i < len(*ia)-1; i++ {
+		for i := range len(*ia) - 1 {
 			b.WriteString((*ia)[i].String() + ", ")
 		}
 
