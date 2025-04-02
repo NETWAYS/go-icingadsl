@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func assertEqualString(t *testing.T, actual, expected string) {
+func assertEqualString(t *testing.T, expected, actual string) {
 	if actual != expected {
 		t.Error("\nActual: ", actual, "\nExpected: ", expected)
 	}
